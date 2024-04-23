@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Console</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        form {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            width: 60%;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin: 50px auto;
+        }
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+        .telegram {
+            color: #0088cc;
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#execute-form').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/execute',
+                    data: formData,
+                    success: function(response) {
+                        if (response.error) {
+                            $('#result').html('<p style="color: red;">Error: ' + response.error + '</p>');
+                        } else {
+                            $('#result').html('<pre>' + response.result + '</pre>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#result').html('<p style="color: red;">Error: ' + error + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin console</h1>
+        <p>Do for everything you need</p>
+        <form id="execute-form">
+            <label for="command">Enter command:</label>
+            <input type="text" id="command" name="command">
+            <button type="submit">Execute</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <div class="copyright">
+        &copy; 2024 - Developed by Ivan Klochenko | <a href="https://t.me/iank13" class="telegram" target="_blank">@iank13</a>
+    </div>
+</body>
+</html>

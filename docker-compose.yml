@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web-server:
+    build: ./web
+    networks:
+      internal_network:
+        ipv4_address: 192.168.10.10
+    ports:
+      - "80:80"
+      - "22:22" 
+    container_name: web-server
+
+  home-server:
+    build: ./home
+    networks:
+      internal_network:
+        ipv4_address: 192.168.10.20
+    container_name: home
+
+networks:
+  internal_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
