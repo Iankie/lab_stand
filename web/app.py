@@ -9,7 +9,7 @@ auth = HTTPBasicAuth()
 
 
 users = {
-    "admin": generate_password_hash("P@ssw0rd")
+    "admin": generate_password_hash("security")
 }
 
 @auth.verify_password

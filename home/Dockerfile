@@ -1,5 +1,5 @@
 #Import OS
-FROM alpine:3.19
+FROM alpine:3.1
 
 #Install packets
 RUN apk update && \
@@ -16,7 +16,7 @@ RUN adduser -D user
 RUN echo "user:P@ssw0rd" | chpasswd 
 
 #Copy flag
-COPY flag2.txt /home/user/      
+COPY secret2.txt /home/user/      
 
 #SSH daemon server run 
 ENTRYPOINT ["/entrypoint.sh"]

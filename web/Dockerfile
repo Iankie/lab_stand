@@ -21,7 +21,7 @@ RUN apk update && \
 RUN pip3 install -r requirements.txt --break-system-packages
 
 #Copy app.py files to container 
-COPY app.py flag1.txt note.txt /home/web-admin/
+COPY app.py secret1.txt /home/web-admin/
 RUN mkdir templates
 COPY templates/index.html templates/
 
