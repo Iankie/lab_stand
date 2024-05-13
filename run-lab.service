@@ -1,0 +1,14 @@
+[Unit]
+Description=Docker Compose Application Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/home/debian/lab
+ExecStart=/usr/bin/docker-compose start
+ExecStop=/usr/bin/docker-compose stop
+
+[Install]
+WantedBy=multi-user.target

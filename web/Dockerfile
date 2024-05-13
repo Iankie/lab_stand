@@ -14,20 +14,18 @@ COPY requirements.txt /home/web-admin/
 #Install need packets 
 RUN apk update && \
         apk upgrade --available && \
-        apk add --no-cache \
-        openssl \
-        ca-certificates \
-        curl \
-        sudo
+        apk add --no-cache openssl \ 
+        ca-certificates curl sudo \
+        python3 py3-pip python3-dev openssh
 
-RUN apk add python3 py3-pip python3-dev openssh && \
-    pip3 install -r requirements.txt --break-system-packages
+RUN pip3 install -r requirements.txt --break-system-packages
 
 #Copy app.py files to container 
 COPY app.py flag1.txt note.txt /home/web-admin/
 RUN mkdir templates
 COPY templates/index.html templates/
 
+#Configure SSH
 RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
